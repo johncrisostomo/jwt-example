@@ -12,7 +12,7 @@ const jwtAttributes = {
   SECRET: 'this_will_be_used_for_hashing_signature',
   ISSUER: 'John Crisostomo', 
   HEADER: 'x-jc-token', 
-  EXPIRY: 30,
+  EXPIRY: 120,
 };
 
 // AUTH MIDDLEWARE FOR /token ENDPOINT
@@ -68,10 +68,10 @@ const validate = function (req, res, next) {
       return;
     }
     
-    if (tokens.isValid(token)) {
+    if (!tokens.isValid(token)) {
       res.statusMessage = 'Unauthorized : Token is either invalid or expired';
       res.sendStatus('401');
-      return
+      return;
     }
     next(); 
   }

@@ -6,7 +6,7 @@ module.exports = {
   },
 
   isValid: function(token) {
-    if (tokens[token] === undefined) {
+    if (!tokens[token]) {
       return false; 
     }
 
