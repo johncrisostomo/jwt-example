@@ -11,4 +11,4 @@ function validateUser(username, password) {
   return user;
 }
 
-module.exports = validateUser;
+module.exports = { validateUser };
