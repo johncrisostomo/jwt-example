@@ -25,6 +25,7 @@
   "homepage": "https://github.com/johncrisostomo/jwt-example#readme",
   "dependencies": {
     "express": "4.15.2",
-    "jwt-simple": "0.5.1"
+    "jwt-simple": "0.5.1",
+    "moment": "^2.18.0"
   }
 }
