@@ -1,10 +1,12 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const users = require('users');
-const tokens = requires('tokens');
+const jwt = require('jwt-simple');
+const moment = require('moment');
+const users = require('./users');
+const tokens = require('./tokens');
 
 const app = express();
-app.user(bodyParser.json());
+app.use(bodyParser.json());
 
 const jwtAttributes = {
   SECRET: 'this_will_be_used_for_hashing_signature',
@@ -15,6 +17,8 @@ const jwtAttributes = {
 
 // AUTH MIDDLEWARE FOR /token ENDPOINT
 const auth = function (req, res) {
+  const { EXPIRY, ISSUER, SECRET } = jwtAttributes;
+
   if (req.body) {
     const user = users.validateUser(req.body.name, req.body.password);
     if (user) {
@@ -23,12 +27,12 @@ const auth = function (req, res) {
       
       const payload = {
         exp: expires,
-        iss: jwtAttributes.ISSUER,
+        iss: ISSUER,
         name: user.name,
         email: user.email, 
       };
 
-      const token = jwt.encode(payload, jwtAttributes.SECRET);
+      const token = jwt.encode(payload, SECRET);
 
       tokens.add(token, payload);
 
@@ -48,14 +52,16 @@ app.post('/token', auth, (req, res) => {
 
 // VALIDATE MIDDLEWARE FOR /secretInfo
 const validate = function (req, res, next) {
-  const token = req.headers[jwtAttributes.HEADER];
+  const { HEADER, SECRET } = jwtAttributes;
+
+  const token = req.headers[HEADER];
 
   if (!token) {
     res.statusMessage = 'Unauthorized: Token not found';
     res.sendStatus('401').end();
   } else {
     try {
-      const decodedToken = jwt.decode(token, jwtAttributes.SECRET);
+      const decodedToken = jwt.decode(token, SECRET);
     } catch(e) {
       res.statusMessage = 'Unauthorized: Invalid token';
       res.sendStatus('401');
