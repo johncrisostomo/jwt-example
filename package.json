@@ -1,0 +1,30 @@
+{
+  "name": "jwt-example",
+  "version": "1.0.0",
+  "description": "JWT demo for my blog post.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johncrisostomo/jwt-example.git"
+  },
+  "keywords": [
+    "jwt",
+    "examples",
+    "javascript",
+    "token",
+    "authentication"
+  ],
+  "author": "John Crisostomo",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/johncrisostomo/jwt-example/issues"
+  },
+  "homepage": "https://github.com/johncrisostomo/jwt-example#readme",
+  "dependencies": {
+    "express": "4.15.2",
+    "jwt-simple": "0.5.1"
+  }
+}
