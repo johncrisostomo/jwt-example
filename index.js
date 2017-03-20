@@ -14,7 +14,7 @@ const jwtAttributes = {
 };
 
 // AUTH MIDDLEWARE FOR /token ENDPOINT
-const auth = function(req, res) {
+const auth = function (req, res) {
   if (req.body) {
     const user = users.validateUser(req.body.name, req.body.password);
     if (user) {
@@ -47,7 +47,7 @@ app.post('/token', auth, (req, res) => {
 });
 
 // VALIDATE MIDDLEWARE FOR /secretInfo
-const validate = (req, res, next) {
+const validate = function (req, res, next) {
   const token = req.headers[jwtAttributes.HEADER];
 
   if (!token) {
